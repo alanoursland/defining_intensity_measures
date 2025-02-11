@@ -1,8 +1,8 @@
-\section{Why This Definition Prevents Pathological Behavior}
+\subsection{Why This Definition Prevents Pathological Behavior}
 
 A well-defined measure of classification confidence must be both stable and meaningful across a range of inputs. Traditional interpretations of intensity, which rely on absolute activations, lead to pathological behaviors such as unbounded growth, overconfidence, and susceptibility to adversarial perturbations. By redefining intensity as a function of contrastive distance, we eliminate these issues and ensure a principled and robust classification framework.
 
-\subsection{The Pathologies of Absolute Activation-Based Confidence}
+\subsubsection{The Pathologies of Absolute Activation-Based Confidence}
 
 If classification confidence were purely a function of absolute activation values, we would encounter several well-documented issues:
 
@@ -15,7 +15,7 @@ If classification confidence were purely a function of absolute activation value
 
 These issues arise because absolute activations do not inherently encode class separability. A more robust approach must account for the competitive nature of classification.
 
-\subsection{Bounding Confidence with Contrastive Distance}
+\subsubsection{Bounding Confidence with Contrastive Distance}
 
 By defining classification confidence as a function of contrastive distance:
 
@@ -57,7 +57,7 @@ S_c'(x) = f(D_{\neg c}(x) - D_c(x)) = S_c(x).
 
 This ensures that confidence is derived purely from the competitive relationships between classes, rather than from extrinsic scaling factors.
 
-\subsection{Robustness Against Adversarial Perturbations}
+\subsubsection{Robustness Against Adversarial Perturbations}
 
 One of the most striking failures of traditional classification systems is their susceptibility to adversarial attacks—small, carefully crafted perturbations that shift activations enough to cause misclassification. Many such attacks exploit the fact that classification confidence is overly dependent on small absolute activation changes rather than true class separability.
 
@@ -71,7 +71,7 @@ Under the contrastive distance framework:
 
 This suggests that neural networks implementing explicit competitive distance tracking may be inherently more robust to adversarial perturbations than those relying on traditional activation-based confidence measures.
 
-\subsection{A Well-Behaved Classification Confidence Measure}
+\subsubsection{A Well-Behaved Classification Confidence Measure}
 
 To summarize, defining classification confidence in terms of contrastive distance ensures that:
 
@@ -84,6 +84,6 @@ To summarize, defining classification confidence in terms of contrastive distanc
 
 This formulation provides a principled approach to defining confidence that aligns with both theoretical and empirical requirements for well-behaved classification systems.
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 
 By replacing absolute activation-based confidence with contrastive distance, we eliminate key failure modes of existing classification frameworks. The next section will explore how this formulation translates into practical implementations, including probability scaling and decision-making in neural networks.

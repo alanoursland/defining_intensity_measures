@@ -1,10 +1,10 @@
-\section{Why Softmax Works: A Distance Perspective}
+\subsection{Why Softmax Works: A Distance Perspective}
 
 Softmax is the most widely used function for converting neural network outputs into probability distributions for classification tasks. Traditionally, softmax is interpreted as a way to normalize raw activations (logits) into a probability distribution, where larger activations indicate stronger feature presence. However, our contrastive distance framework provides a more fundamental explanation: softmax works because it approximates a transformation of relative class distances.
 
 In this section, we reinterpret softmax as a competitive distance function, demonstrating how it aligns with our theoretical framework.
 
-\subsection{Traditional View of Softmax}
+\subsubsection{Traditional View of Softmax}
 
 In standard classification models, the softmax function is applied to logits \( z_c \) to compute class probabilities:
 
@@ -24,7 +24,7 @@ This formulation ensures that:
 
 However, this interpretation relies on the assumption that logits represent an intrinsic measure of class presence, which, as we have shown, is misleading. Instead, logits can be understood as \textit{contrastive distance functions}.
 
-\subsection{Reinterpreting Softmax as a Competitive Distance Function}
+\subsubsection{Reinterpreting Softmax as a Competitive Distance Function}
 
 Instead of treating logits as absolute indicators of class strength, we define them in terms of contrastive distance:
 
@@ -53,7 +53,7 @@ This formulation provides a geometric justification for softmax:
     \item The denominator normalizes probabilities across all classes, preserving relative ranking among competing distances.
 \end{itemize}
 
-\subsection{Decision Boundaries in Softmax}
+\subsubsection{Decision Boundaries in Softmax}
 
 A key property of softmax is that classification is based on which \( p_c \) is largest, which occurs when:
 
@@ -63,7 +63,7 @@ D_c(x) < D_{\neg c}(x).
 
 This aligns with our contrastive distance framework: an input is assigned to the class whose prototype it is closest to. The probability difference between classes reflects the separation between competing distances.
 
-\subsection{Softmax Overconfidence and High-Dimensional Scaling}
+\subsubsection{Softmax Overconfidence and High-Dimensional Scaling}
 
 One common issue with softmax is that it tends to produce overconfident predictions, particularly in high-dimensional feature spaces. This is because the exponential function exaggerates small differences in logits, making even slightly preferred classes appear overwhelmingly likely.
 
@@ -83,7 +83,7 @@ p_c = \frac{e^{-\lambda (D_c(x) - D_{\neg c}(x))}}{\sum_{c'} e^{-\lambda (D_{c'}
 
 where \( \lambda \) is a scaling factor that adjusts the sensitivity of probability estimates to contrastive distance differences.
 
-\subsection{Implications for Model Design}
+\subsubsection{Implications for Model Design}
 
 Understanding softmax as a function of competitive distance suggests several improvements to model architecture and training:
 
@@ -93,7 +93,7 @@ Understanding softmax as a function of competitive distance suggests several imp
     \item \textbf{Robust Classification:} By explicitly tracking relative distances between competing classes, models may be more resistant to adversarial perturbations that attempt to manipulate activation magnitudes.
 \end{itemize}
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 
 Softmax works not because it maps raw activations into probabilities, but because it acts as a transformation of contrastive class distances. This reinterpretation aligns with our framework and provides a theoretical foundation for understanding classification confidence. 
 

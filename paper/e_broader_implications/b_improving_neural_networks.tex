@@ -1,8 +1,8 @@
-\section{Improving Neural Networks with Explicit Competitive Distance}
+\subsection{Improving Neural Networks with Explicit Competitive Distance}
 
 Our reinterpretation of classification confidence as a function of contrastive distance suggests potential improvements to neural network architectures and training strategies. By explicitly modeling competitive distance, networks can become more robust, better calibrated, and less prone to adversarial perturbations. This section explores modifications to neural network design that leverage explicit distance-based representations.
 
-\subsection{Limitations of Current Neural Network Architectures}
+\subsubsection{Limitations of Current Neural Network Architectures}
 
 Traditional neural networks, particularly deep classifiers, operate under the assumption that larger activations indicate stronger feature presence. However, as we have shown, classification decisions are better understood as a function of competitive distances. This misalignment leads to several issues:
 
@@ -14,7 +14,7 @@ Traditional neural networks, particularly deep classifiers, operate under the as
 
 These issues suggest that explicitly incorporating competitive distance into network design may lead to improvements in classification robustness and interpretability.
 
-\subsection{Incorporating Competitive Distance into Neural Representations}
+\subsubsection{Incorporating Competitive Distance into Neural Representations}
 
 We propose modifying neural network architectures to explicitly compute and track competitive distances during training and inference.
 
@@ -74,7 +74,7 @@ This transformation ensures that:
     \item Decision boundaries remain stable across training epochs.
 \end{itemize}
 
-\subsection{Improving Adversarial Robustness}
+\subsubsection{Improving Adversarial Robustness}
 
 One of the key weaknesses of traditional neural networks is their vulnerability to adversarial perturbations—small, carefully crafted modifications to input data that cause misclassification. Explicitly incorporating competitive distance into neural networks can improve adversarial robustness by:
 
@@ -84,7 +84,7 @@ One of the key weaknesses of traditional neural networks is their vulnerability 
     \item \textbf{Enhancing Margin Maximization:} Contrastive loss functions naturally encourage larger class margins, making it harder for adversarial perturbations to flip classification outcomes.
 \end{enumerate}
 
-\subsection{Implications for Network Calibration and Uncertainty Estimation}
+\subsubsection{Implications for Network Calibration and Uncertainty Estimation}
 
 Traditional deep learning models tend to be poorly calibrated, meaning that softmax probabilities do not accurately reflect classification confidence. Explicitly modeling competitive distance can improve calibration by:
 
@@ -96,6 +96,6 @@ Traditional deep learning models tend to be poorly calibrated, meaning that soft
 
 This suggests that distance-aware classification models may provide more reliable confidence estimates, improving real-world applicability in high-stakes decision-making scenarios.
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 
 By explicitly incorporating competitive distance into neural network architectures, we can address key weaknesses in traditional classification models. This framework offers a principled way to improve robustness, calibration, and adversarial resistance. The next section explores how this approach extends beyond neural networks to broader cognitive and perceptual systems.

@@ -1,8 +1,8 @@
-\section{The Illusion of Intensity}
+\subsection{The Illusion of Intensity}
 
 In many scientific and engineering disciplines, the term \textit{intensity} is used informally to describe the strength or presence of a property. In physics, intensity often refers to measurable quantities such as the amplitude of a wave or the power of a signal. In deep learning, activation magnitudes are frequently interpreted as indicating the “strength” of a feature. However, despite its widespread use, intensity lacks a rigorous mathematical definition. This section explores why intensity is often an illusion—an artifact of how distance-based measures are interpreted rather than a fundamental property.
 
-\subsection{Intensity as a Heuristic Concept}
+\subsubsection{Intensity as a Heuristic Concept}
 
 Unlike well-defined measures such as distance, probability, or energy, intensity is often assumed rather than derived. Consider common uses of intensity:
 
@@ -14,7 +14,7 @@ Unlike well-defined measures such as distance, probability, or energy, intensity
 
 Each of these cases suggests that intensity is a function of some underlying measure, yet no universal formulation exists. In particular, **the assumption that intensity corresponds to feature strength is misleading**, especially in machine learning.
 
-\subsection{Neural Activations Do Not Represent Absolute Feature Strength}
+\subsubsection{Neural Activations Do Not Represent Absolute Feature Strength}
 
 In deep learning, neurons process information by transforming input data through activation functions. The magnitude of a neuron’s activation is often interpreted as reflecting the presence or strength of a learned feature. However, this interpretation is problematic for several reasons:
 
@@ -30,7 +30,7 @@ In deep learning, neurons process information by transforming input data through
 
 These observations suggest that the perception of intensity as an independent measure is an illusion. Instead, activation values should be interpreted through the lens of distance and competition between classes.
 
-\subsection{The Role of Distance in Classification Decisions}
+\subsubsection{The Role of Distance in Classification Decisions}
 
 Consider a simple classification problem where a neural network must distinguish between two classes. A naive intensity-based interpretation suggests that an input belongs to a class if the activation for that class exceeds a certain threshold. However, this approach fails in practical settings:
 
@@ -42,7 +42,7 @@ Consider a simple classification problem where a neural network must distinguish
 
 Instead of interpreting activation values as absolute feature strength, it is more accurate to view them as **encodings of competitive distances**. That is, a classification decision is made not based on a single feature’s presence, but on its proximity to multiple class prototypes.
 
-\subsection{A Thought Experiment: Bigfoot and the Intensity Fallacy}
+\subsubsection{A Thought Experiment: Bigfoot and the Intensity Fallacy}
 
 To illustrate the illusion of intensity, consider the classic analogy of searching for Bigfoot. Suppose a group of researchers sets out to find evidence of Bigfoot in the forest. They define a set of features that might indicate Bigfoot’s presence, such as large footprints, unusual hair samples, and distorted vocalizations.
 
@@ -56,7 +56,7 @@ A naive intensity-based approach suggests that finding a very large footprint is
 
 This parallels neural network classification: an activation’s magnitude only matters in comparison to alternative activations. Just as a single footprint does not prove Bigfoot’s existence, a high activation does not prove that a feature is truly present—it only suggests that the input is closer to one learned representation than another.
 
-\subsection{Transitioning from Intensity to Competitive Distance}
+\subsubsection{Transitioning from Intensity to Competitive Distance}
 
 Since intensity lacks an independent mathematical definition, we propose a shift in perspective: rather than viewing intensity as feature presence, it should be understood as a function of **competitive distances**. That is, instead of defining intensity as a direct activation value, it should be derived from the difference between distances to competing class representations:
 

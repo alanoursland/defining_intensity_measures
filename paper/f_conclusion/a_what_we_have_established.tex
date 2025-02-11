@@ -1,8 +1,8 @@
-\section{What We Have Established}
+\subsection{What We Have Established}
 
 In this work, we have redefined classification confidence and intensity as functions of competitive distance rather than absolute activation strength. Our framework provides a principled, mathematically rigorous, and biologically plausible explanation for decision-making in both artificial and natural systems. This section summarizes the key insights and contributions of our work.
 
-\subsection{Distance as the Fundamental Measure}
+\subsubsection{Distance as the Fundamental Measure}
 
 We began by analyzing different types of measures and showed that \textbf{distance is the primary and rigorously defined measure}, while intensity lacks a formal definition. We established that:
 
@@ -12,7 +12,7 @@ We began by analyzing different types of measures and showed that \textbf{distan
     \item Traditional interpretations of intensity as feature presence are heuristically defined and fail to account for classification dynamics.
 \end{itemize}
 
-\subsection{The Illusion of Intensity and the Competitive Distance Framework}
+\subsubsection{The Illusion of Intensity and the Competitive Distance Framework}
 
 We demonstrated that intensity, as commonly understood in neural networks, is an illusion. Instead of representing absolute feature strength, intensity should be understood as a function of contrastive distance. Specifically:
 
@@ -30,7 +30,7 @@ We demonstrated that intensity, as commonly understood in neural networks, is an
 
 This formulation resolved the issue of unbounded intensity growth, ensured proper scaling, and aligned with how classification systems actually operate.
 
-\subsection{A Distance-Based Interpretation of Softmax and Probability}
+\subsubsection{A Distance-Based Interpretation of Softmax and Probability}
 
 By redefining logits in neural networks as contrastive distances:
 
@@ -46,7 +46,7 @@ we showed that softmax does not simply map activations to probabilities but rath
     \item How alternative transformations (e.g., logistic sigmoid, inverse contrastive distance) could provide more calibrated probability estimates.
 \end{itemize}
 
-\subsection{Implications for Neural Network Design and Adversarial Robustness}
+\subsubsection{Implications for Neural Network Design and Adversarial Robustness}
 
 With our new framework, we proposed several modifications to neural networks:
 
@@ -57,7 +57,7 @@ With our new framework, we proposed several modifications to neural networks:
     \item \textbf{Calibration Improvements:} Our approach offers a natural way to correct overconfidence in deep learning models.
 \end{itemize}
 
-\subsection{Connections to Cognitive Science and Perception}
+\subsubsection{Connections to Cognitive Science and Perception}
 
 Finally, we showed that this framework aligns with human cognition and perception. Evidence from psychology and neuroscience suggests that:
 
@@ -69,7 +69,7 @@ Finally, we showed that this framework aligns with human cognition and perceptio
 
 This suggests that artificial intelligence systems designed with competitive distance principles may better mimic human-like reasoning and robustness.
 
-\subsection{Final Summary}
+\subsubsection{Final Summary}
 
 To summarize, we have established that:
 

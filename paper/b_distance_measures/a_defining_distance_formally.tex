@@ -1,8 +1,8 @@
-\section{Defining Distance Formally}
+\subsection{Defining Distance Formally}
 
 Distance is one of the most fundamental and rigorously defined measures in mathematics. It quantifies the separation between two points in a space, forming the foundation for concepts in geometry, analysis, and machine learning. Unlike intensity, which lacks a universal mathematical definition, distance is formally characterized within the framework of metric spaces.
 
-\subsection{Metric Spaces and Distance Functions}
+\subsubsection{Metric Spaces and Distance Functions}
 
 A \textbf{metric space} is a set \( X \) equipped with a function \( d: X \times X \to \mathbb{R} \) that satisfies specific properties ensuring a consistent measure of separation. This function \( d(x, y) \), called a \textbf{metric}, must satisfy the following axioms for all \( x, y, z \in X \):
 
@@ -27,7 +27,7 @@ A \textbf{metric space} is a set \( X \) equipped with a function \( d: X \times
 
 These properties ensure that distance behaves predictably and enables various mathematical operations, such as clustering, nearest-neighbor searches, and decision boundary calculations.
 
-\subsection{Common Distance Metrics}
+\subsubsection{Common Distance Metrics}
 
 Several distance metrics appear frequently across mathematics, data science, and machine learning:
 
@@ -76,7 +76,7 @@ D_{\text{KL}}(P || Q) = \sum_i P(i) \log \frac{P(i)}{Q(i)}.
 
 Unlike the previous metrics, KL-divergence is not symmetric and does not satisfy the triangle inequality, meaning it is not a true metric. However, it remains a useful measure of dissimilarity in probabilistic models.
 
-\subsection{Distance as the Fundamental Measure}
+\subsubsection{Distance as the Fundamental Measure}
 
 A key property of distance measures is their universality: almost all similarity measures can be derived from distance functions, either through negation or transformation. In particular, \textbf{intensity measures often emerge as functions of distance}, a theme that will be explored in subsequent sections.
 

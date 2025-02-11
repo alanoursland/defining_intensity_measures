@@ -1,10 +1,10 @@
-\section{Distance vs. Intensity: The Problem}
+\subsection{Distance vs. Intensity: The Problem}
 
 In many fields, the concepts of \textit{distance} and \textit{intensity} are used interchangeably or without formal distinction. While distance is rigorously defined in mathematics, intensity is often treated as an intuitive, heuristic measure of strength or presence. This lack of formalism creates inconsistencies, particularly in classification systems where confidence and decision-making rely on well-defined measures.
 
 In this section, we examine the key differences between distance and intensity and highlight why intensity, as traditionally used, lacks a foundational definition.
 
-\subsection{Distance: A Well-Defined Measure}
+\subsubsection{Distance: A Well-Defined Measure}
 
 Distance is one of the most fundamental concepts in mathematics. A properly defined distance function (or metric) satisfies key properties such as non-negativity, symmetry, and the triangle inequality. Some common distance measures include:
 
@@ -16,7 +16,7 @@ Distance is one of the most fundamental concepts in mathematics. A properly defi
 
 These measures provide a \textbf{geometric basis for similarity and dissimilarity} in various mathematical spaces.
 
-\subsection{Intensity: A Concept Without Formal Definition}
+\subsubsection{Intensity: A Concept Without Formal Definition}
 
 In contrast to distance, intensity is often used informally to describe the strength of a feature, probability, or classification confidence. Examples include:
 
@@ -28,7 +28,7 @@ In contrast to distance, intensity is often used informally to describe the stre
 
 Unlike distance, intensity lacks a universal definition, leading to ambiguity in how it should be interpreted across different domains.
 
-\subsection{Why the Traditional View of Intensity is Problematic}
+\subsubsection{Why the Traditional View of Intensity is Problematic}
 
 Interpreting intensity as an independent measure leads to several problems:
 
@@ -39,7 +39,7 @@ Interpreting intensity as an independent measure leads to several problems:
     \item \textbf{Lack of Decision Boundary Awareness:} Intensity-based confidence does not inherently reflect how close a sample is to a decision boundary.
 \end{enumerate}
 
-\subsection{The Need for a Competitive Distance Framework}
+\subsubsection{The Need for a Competitive Distance Framework}
 
 Since intensity lacks a foundational definition, we propose redefining it in terms of \textit{contrastive distance}. Instead of treating intensity as an absolute measure, we introduce a framework where classification confidence is derived from the \textbf{difference between distances to competing classes}:
 
@@ -63,6 +63,6 @@ This formulation ensures that classification confidence:
     \item Naturally aligns with decision boundaries and uncertainty estimation.
 \end{itemize}
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 
 The lack of a formal definition for intensity has led to inconsistencies in classification confidence, neural activations, and probability scaling. By reframing intensity in terms of \textbf{competitive distance}, we provide a rigorous and interpretable measure that resolves these issues. The next section will outline the goals of this chapter and the key insights that will be developed in later sections.

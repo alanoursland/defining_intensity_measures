@@ -1,10 +1,10 @@
-\section{The Real Meaning of Classification Confidence}
+\subsection{The Real Meaning of Classification Confidence}
 
 Traditional interpretations of classification confidence suggest that larger activations in neural networks correspond to stronger feature presence. However, our competitive distance framework provides a more rigorous explanation: classification confidence is not a measure of absolute activation magnitude but rather a function of relative distances between an input and competing class prototypes. 
 
 In this section, we redefine classification confidence as a function of contrastive distance and show how this naturally explains decision boundaries, uncertainty, and neural activations.
 
-\subsection{Confidence as a Function of Competitive Distance}
+\subsubsection{Confidence as a Function of Competitive Distance}
 
 In a multi-class classification setting, a model assigns a confidence score \( S_c(x) \) to each class \( c \). Instead of viewing this as an absolute measure of feature strength, we define it in terms of the contrast between the distance to the target class and the distance to the closest competing class:
 
@@ -28,7 +28,7 @@ This formulation provides a direct interpretation of confidence:
     \item \textbf{Misclassification:} If \( D_c(x) > D_{\neg c}(x) \), then \( S_c(x) \) is negative, indicating that \( x \) is closer to another class.
 \end{itemize}
 
-\subsection{Decision Boundaries and Uncertainty}
+\subsubsection{Decision Boundaries and Uncertainty}
 
 A key property of this framework is that classification confidence naturally reflects decision boundaries. The boundary between two classes \( c_1 \) and \( c_2 \) occurs where:
 
@@ -46,7 +46,7 @@ This aligns with standard decision theory: when two competing classes are equidi
 
 Beyond binary classification, the framework extends to multi-class problems, where decision boundaries form Voronoi-like regions in feature space. The class assigned to an input \( x \) is the one for which \( S_c(x) \) is maximized, ensuring that each decision is based on the contrastive distance to competing classes.
 
-\subsection{Softmax Reinterpreted as Competitive Distance Scaling}
+\subsubsection{Softmax Reinterpreted as Competitive Distance Scaling}
 
 Softmax is widely used to convert logits into probability-like confidence scores:
 
@@ -64,7 +64,7 @@ This shows that softmax is not computing confidence based on raw activations but
 
 This reinterpretation also clarifies why softmax confidence can be overconfident in high-dimensional spaces: when distances between class prototypes are large, the difference \( D_{\neg c}(x) - D_c(x) \) becomes exaggerated, leading to probability distributions that favor one class disproportionately.
 
-\subsection{Geometric Interpretation of Activation Space}
+\subsubsection{Geometric Interpretation of Activation Space}
 
 When visualizing activations in feature space, our framework provides a clearer understanding of neural network behavior:
 
@@ -77,7 +77,7 @@ When visualizing activations in feature space, our framework provides a clearer 
 
 This interpretation naturally aligns with findings in adversarial robustness: small perturbations that move an input across a decision boundary shift the contrastive distance balance, leading to misclassification.
 
-\subsection{Implications for Model Robustness and Calibration}
+\subsubsection{Implications for Model Robustness and Calibration}
 
 Understanding classification confidence as a function of contrastive distance provides new insights into:
 
@@ -87,7 +87,7 @@ Understanding classification confidence as a function of contrastive distance pr
     \item \textbf{Uncertainty Estimation:} Instead of relying on entropy of softmax probabilities, uncertainty can be directly measured using the raw difference in class distances.
 \end{itemize}
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 
 We have redefined classification confidence as a function of competitive distance, providing a more rigorous explanation for decision boundaries, uncertainty, and neural activations. This framework naturally explains why softmax probabilities behave as they do and suggests new approaches for improving model calibration and robustness.
 

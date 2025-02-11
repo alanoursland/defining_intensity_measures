@@ -1,8 +1,8 @@
-\section{The True Definition: Intensity as Competitive Distance}
+\subsection{The True Definition: Intensity as Competitive Distance}
 
 Having established that intensity cannot be a direct negation of distance, we now develop a formal definition based on contrastive distance. Instead of viewing intensity as an intrinsic property, we define it as a measure derived from the relative distances between an input and competing class representations. This framework ensures that intensity is well-defined, bounded, and meaningful in classification settings.
 
-\subsection{Reframing Intensity: A Function of Contrastive Distance}
+\subsubsection{Reframing Intensity: A Function of Contrastive Distance}
 
 In a classification system, an input \( x \) is mapped to a class \( c \) based on its relationship to learned class representations. Instead of defining intensity as \( S_c(x) = -D_c(x) \), we propose that intensity should be a function of the difference between the distance to the target class and the distance to the closest competing class:
 
@@ -26,7 +26,7 @@ This definition guarantees that intensity:
     \item \textbf{Naturally aligns with classification confidence:} In probabilistic classification, confidence scores are often functions of relative distances, making this formulation a direct theoretical justification for softmax-like behavior.
 \end{itemize}
 
-\subsection{Choosing an Appropriate Transformation Function \( f \)}
+\subsubsection{Choosing an Appropriate Transformation Function \( f \)}
 
 The function \( f \) should ensure that intensity remains meaningful and interpretable. Several choices exist:
 
@@ -56,7 +56,7 @@ This ensures that intensity is normalized relative to the largest relevant dista
 
 Each of these functions maintains the fundamental property that intensity is a measure of class separability rather than absolute feature strength.
 
-\subsection{Interpretation: Intensity as Decision Boundary Margin}
+\subsubsection{Interpretation: Intensity as Decision Boundary Margin}
 
 Under this framework, classification confidence is directly tied to how well-separated an input is from competing classes. The decision boundary occurs when:
 
@@ -72,7 +72,7 @@ At this point, intensity reaches a neutral state, meaning that the input is equi
     \item When \( D_c(x) \approx D_{\neg c}(x) \), intensity is near zero, indicating uncertainty.
 \end{itemize}
 
-\subsection{Connections to Existing Classification Systems}
+\subsubsection{Connections to Existing Classification Systems}
 
 \subsubsection{Softmax Logits as Competitive Distance}
 Many classification systems, including neural networks, use softmax to produce class probabilities:
@@ -95,7 +95,7 @@ Support vector machines (SVMs) use margin-based classification, where a decision
 \subsubsection{Probabilistic Models}
 In Gaussian mixture models (GMMs), classification is based on likelihood ratios, which can be reinterpreted as contrastive distance comparisons. This further supports our claim that classification confidence is inherently a function of relative distances.
 
-\subsection{Implications for Neural Network Training}
+\subsubsection{Implications for Neural Network Training}
 
 Redefining intensity as competitive distance suggests potential improvements in training and architecture design:
 
@@ -105,7 +105,7 @@ Redefining intensity as competitive distance suggests potential improvements in 
     \item \textbf{Improved interpretability:} Feature importance could be analyzed in terms of competitive distances rather than absolute activations.
 \end{itemize}
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 
 Intensity is not a direct measure of feature strength, nor can it be naively defined as the negation of distance. Instead, we define it as a function of contrastive distance, ensuring that it is bounded, stable, and meaningful. This framework provides a rigorous foundation for understanding classification confidence, bridging the gap between metric learning, probabilistic classification, and deep learning.
 

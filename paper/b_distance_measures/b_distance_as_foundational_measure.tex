@@ -1,10 +1,10 @@
-\section{Distance as the Foundational Measure}
+\subsection{Distance as the Foundational Measure}
 
 Distance is one of the most rigorously defined and universally applicable measures in mathematics and applied sciences. Unlike intensity, which is often treated as a heuristic quantity without a formal definition, distance satisfies well-defined mathematical properties and serves as the basis for measuring similarity, classification, and decision-making. 
 
 This section establishes why distance should be considered the primary measure underlying classification and why intensity must be derived from it rather than treated as an independent quantity.
 
-\subsection{Why Distance is a Fundamental Concept}
+\subsubsection{Why Distance is a Fundamental Concept}
 
 A well-defined measure should be:
 
@@ -16,7 +16,7 @@ A well-defined measure should be:
 
 Distance satisfies all three criteria. It is rigorously defined through the principles of metric spaces, appears in diverse fields from physics to machine learning, and provides meaningful comparisons between entities.
 
-\subsection{Distance and Similarity: Two Sides of the Same Concept}
+\subsubsection{Distance and Similarity: Two Sides of the Same Concept}
 
 Distance functions are typically used to quantify dissimilarity, but they also inherently encode similarity. Given a distance function \( d(x, y) \), we can define similarity as its inverse:
 
@@ -26,7 +26,7 @@ s(x, y) = \frac{1}{1 + d(x, y)}.
 
 Thus, rather than defining similarity and intensity as independent concepts, we recognize that they are transformations of a single underlying measure—distance.
 
-\subsection{The Role of Distance in Classification}
+\subsubsection{The Role of Distance in Classification}
 
 In classification tasks, distance is fundamental to decision boundaries and confidence estimation. Consider a classifier that assigns an input \( x \) to one of \( K \) possible classes, each represented by a prototype or decision region.
 
@@ -43,7 +43,7 @@ In classification tasks, distance is fundamental to decision boundaries and conf
 
 If classification decisions are inherently based on distance comparisons, it follows that intensity or confidence must be defined in terms of relative distances rather than absolute activation magnitudes.
 
-\subsection{Distance and Decision Boundaries}
+\subsubsection{Distance and Decision Boundaries}
 
 Decision boundaries separate different class regions in feature space. These boundaries emerge naturally from distance-based classification:
 
@@ -59,7 +59,7 @@ Decision boundaries separate different class regions in feature space. These bou
 
 This formalism shows that classification is inherently a process of comparing distances—further reinforcing that distance, not intensity, is the fundamental measure.
 
-\subsection{Distance-Based Measures in Machine Learning}
+\subsubsection{Distance-Based Measures in Machine Learning}
 
 Distance-based reasoning is widely used in machine learning:
 
@@ -71,6 +71,6 @@ Distance-based reasoning is widely used in machine learning:
 
 These examples highlight how classification models operate by leveraging distance, often implicitly.
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 
 Distance is a rigorously defined, foundational measure that underlies classification, similarity, and decision boundaries. The next section will show why intensity cannot be treated as an independent quantity and must instead be formulated as a function of contrastive distances.

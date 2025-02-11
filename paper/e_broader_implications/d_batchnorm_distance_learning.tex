@@ -1,10 +1,10 @@
-\section{How BatchNorm Reinforces Competitive Distance Learning}
+\subsection{How BatchNorm Reinforces Competitive Distance Learning}
 
 Batch Normalization (BatchNorm) is a widely used technique in deep learning that normalizes activations across a batch of inputs to improve training stability, generalization, and convergence speed. While BatchNorm is often interpreted as a method for reducing internal covariate shift, we argue that it also plays a crucial role in \textbf{enforcing a form of competitive distance normalization}. 
 
 In this section, we examine how BatchNorm implicitly aligns with the competitive distance framework and propose modifications that could explicitly incorporate contrastive distance in neural networks.
 
-\subsection{BatchNorm as an Approximate Mahalanobis Transform}
+\subsubsection{BatchNorm as an Approximate Mahalanobis Transform}
 
 BatchNorm operates by normalizing activations \( x \) based on the mean and variance computed over a batch:
 
@@ -28,7 +28,7 @@ where \( \Sigma \) is the covariance matrix. BatchNorm, however, performs only a
 
 Since Mahalanobis distance is crucial for measuring feature separability in metric learning, this suggests that BatchNorm is implicitly encouraging networks to learn representations where distances between class prototypes are more meaningful.
 
-\subsection{BatchNorm as a Competitive Distance Normalizer}
+\subsubsection{BatchNorm as a Competitive Distance Normalizer}
 
 From the competitive distance perspective, classification decisions should not be based on absolute activations but on relative distances between classes. BatchNorm reinforces this by:
 
@@ -40,7 +40,7 @@ From the competitive distance perspective, classification decisions should not b
 
 By implicitly enforcing a form of competitive distance scaling, BatchNorm enhances a network's ability to learn well-separated class prototypes.
 
-\subsection{Reinterpreting BatchNorm in Competitive Distance Learning}
+\subsubsection{Reinterpreting BatchNorm in Competitive Distance Learning}
 
 Our competitive distance framework suggests that classification confidence should be computed as:
 
@@ -50,7 +50,7 @@ S_c(x) = f(D_{\neg c}(x) - D_c(x)).
 
 If we consider a network where BatchNorm is applied, we can reinterpret its function as ensuring that \( D_c(x) \) and \( D_{\neg c}(x) \) are computed over normalized feature representations, improving their consistency and preventing scale-induced distortions.
 
-\subsection{Can BatchNorm Be Improved for Competitive Distance Learning?}
+\subsubsection{Can BatchNorm Be Improved for Competitive Distance Learning?}
 
 While BatchNorm provides a form of competitive distance normalization, it does so indirectly. We propose modifications that could explicitly incorporate contrastive distance principles:
 
@@ -62,7 +62,7 @@ While BatchNorm provides a form of competitive distance normalization, it does s
 
 These modifications could enhance the role of BatchNorm in maintaining stable, interpretable contrastive distances throughout network training.
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 
 BatchNorm already reinforces elements of competitive distance learning by ensuring that feature activations are normalized in a way that prevents scale-based distortions. However, by modifying BatchNorm to explicitly incorporate competitive distance principles, we may further improve classification robustness, calibration, and interpretability. 
 
