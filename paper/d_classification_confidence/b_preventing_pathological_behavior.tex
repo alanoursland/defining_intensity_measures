@@ -1,0 +1,89 @@
+\section{Why This Definition Prevents Pathological Behavior}
+
+A well-defined measure of classification confidence must be both stable and meaningful across a range of inputs. Traditional interpretations of intensity, which rely on absolute activations, lead to pathological behaviors such as unbounded growth, overconfidence, and susceptibility to adversarial perturbations. By redefining intensity as a function of contrastive distance, we eliminate these issues and ensure a principled and robust classification framework.
+
+\subsection{The Pathologies of Absolute Activation-Based Confidence}
+
+If classification confidence were purely a function of absolute activation values, we would encounter several well-documented issues:
+
+\begin{enumerate}
+    \item \textbf{Unbounded Growth:} If confidence were directly defined as \( S_c(x) = -D_c(x) \), optimizing for confidence would drive distances toward negative infinity, which is meaningless in practical scenarios.
+    \item \textbf{Overconfidence in High-Dimensional Spaces:} Softmax-based classification often leads to extreme confidence scores due to the exponential transformation of logits. When feature spaces have high dimensionality, even small absolute activation differences translate into near-certain probabilities, making models excessively confident.
+    \item \textbf{Sensitivity to Feature Scaling:} If activations encode absolute intensity, then uniform rescaling of all activations should not affect classification. However, empirical evidence suggests that such scaling does alter confidence scores, indicating that absolute activations alone are insufficient for meaningful classification.
+    \item \textbf{Vulnerability to Adversarial Attacks:} Small, imperceptible changes in input space can drastically shift activations, leading to confident misclassification. This suggests that models are not truly measuring intrinsic feature strength, but rather responding to small shifts in contrastive distances.
+\end{enumerate}
+
+These issues arise because absolute activations do not inherently encode class separability. A more robust approach must account for the competitive nature of classification.
+
+\subsection{Bounding Confidence with Contrastive Distance}
+
+By defining classification confidence as a function of contrastive distance:
+
+\[
+S_c(x) = f(D_{\neg c}(x) - D_c(x)),
+\]
+
+we introduce a bounded and stable formulation that avoids pathological behavior.
+
+\subsubsection{Preventing Unbounded Growth}
+
+Since confidence is now computed as a difference between distances, it remains constrained within meaningful limits:
+
+\[
+-\infty < D_{\neg c}(x) - D_c(x) < \infty.
+\]
+
+Unlike absolute activations, which can grow indefinitely, the contrastive distance difference is naturally bounded by the separability of class prototypes in the feature space.
+
+\subsubsection{Mitigating Overconfidence in High-Dimensional Spaces}
+
+In high-dimensional settings, absolute activations tend to spread apart, causing naive softmax probabilities to exaggerate confidence. However, under the contrastive distance formulation, confidence depends only on \textit{relative} class distances, not their absolute magnitudes. This prevents extreme confidence shifts due to high-dimensional scaling effects.
+
+\subsubsection{Ensuring Scale-Invariance}
+
+A fundamental requirement of a well-behaved classification confidence measure is that it should remain unchanged under uniform scaling transformations. If all activations were multiplied by a constant factor \( \alpha \), then under the naive intensity interpretation:
+
+\[
+S_c'(x) = \alpha S_c(x),
+\]
+
+which arbitrarily alters classification confidence.
+
+In contrast, contrastive distance formulations remain invariant under uniform scaling, since both \( D_c(x) \) and \( D_{\neg c}(x) \) scale together:
+
+\[
+S_c'(x) = f(D_{\neg c}(x) - D_c(x)) = S_c(x).
+\]
+
+This ensures that confidence is derived purely from the competitive relationships between classes, rather than from extrinsic scaling factors.
+
+\subsection{Robustness Against Adversarial Perturbations}
+
+One of the most striking failures of traditional classification systems is their susceptibility to adversarial attacks—small, carefully crafted perturbations that shift activations enough to cause misclassification. Many such attacks exploit the fact that classification confidence is overly dependent on small absolute activation changes rather than true class separability.
+
+Under the contrastive distance framework:
+
+\begin{itemize}
+    \item **Perturbations must significantly alter relative distances to affect confidence.** Small, local perturbations that do not meaningfully affect contrastive distances will not induce overconfidence or misclassification.
+    \item **Confidence degradation is a function of decision boundary movement.** Rather than treating activations as independent measures of class presence, the framework explicitly tracks how distances to competing classes change. This makes adversarial manipulations easier to detect.
+    \item **Classification is more stable to input-space transformations.** If an adversarial attack distorts feature space without substantially shifting relative distances, confidence remains unchanged.
+\end{itemize}
+
+This suggests that neural networks implementing explicit competitive distance tracking may be inherently more robust to adversarial perturbations than those relying on traditional activation-based confidence measures.
+
+\subsection{A Well-Behaved Classification Confidence Measure}
+
+To summarize, defining classification confidence in terms of contrastive distance ensures that:
+
+\begin{itemize}
+    \item \textbf{Confidence remains bounded,} preventing infinite growth.
+    \item \textbf{Overconfidence in high dimensions is mitigated,} making models more calibrated.
+    \item \textbf{Scale-invariance is preserved,} ensuring robustness to activation transformations.
+    \item \textbf{Adversarial perturbations must alter relative distances,} making confidence shifts more interpretable.
+\end{itemize}
+
+This formulation provides a principled approach to defining confidence that aligns with both theoretical and empirical requirements for well-behaved classification systems.
+
+\subsection{Conclusion}
+
+By replacing absolute activation-based confidence with contrastive distance, we eliminate key failure modes of existing classification frameworks. The next section will explore how this formulation translates into practical implementations, including probability scaling and decision-making in neural networks.

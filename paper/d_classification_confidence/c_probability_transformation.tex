@@ -1,0 +1,100 @@
+\section{Transforming Competitive Distance into a Probability Measure}
+
+In practical classification systems, confidence values are often transformed into probability-like measures to facilitate decision-making and interpretability. Many existing approaches, such as softmax, implicitly assume that classification confidence is derived from absolute activations. However, our framework, which defines confidence in terms of contrastive distance, provides a more principled way to compute probability scores.
+
+This section explores how contrastive distance can be transformed into a probability measure while maintaining its theoretical advantages.
+
+\subsection{Probability as a Function of Contrastive Distance}
+
+Given an input \( x \), we define classification confidence using contrastive distance:
+
+\[
+S_c(x) = D_{\neg c}(x) - D_c(x).
+\]
+
+where:
+
+\begin{itemize}
+    \item \( D_c(x) \) is the distance from \( x \) to the prototype of class \( c \).
+    \item \( D_{\neg c}(x) = \min_{c' \neq c} D_{c'}(x) \) is the distance to the closest non-target class.
+\end{itemize}
+
+To convert this into a probability-like measure, we apply a transformation function \( f \) that ensures proper scaling and interpretability.
+
+\subsection{Common Transformations for Probability Scaling}
+
+Several functions can be used to map contrastive distance into a probability space:
+
+\subsubsection{Softmax Transformation}
+
+The most commonly used probability transformation in neural networks is the softmax function:
+
+\[
+p_c = \frac{e^{z_c}}{\sum_{c'} e^{z_{c'}}}.
+\]
+
+Under our framework, we redefine logits as contrastive distances:
+
+\[
+z_c = -D_c(x) + D_{\neg c}(x).
+\]
+
+Substituting into softmax:
+
+\[
+p_c = \frac{e^{-(D_c(x) - D_{\neg c}(x))}}{\sum_{c'} e^{-(D_{c'}(x) - D_{\neg c'}(x))}}.
+\]
+
+This transformation ensures that probability is a smooth function of relative class separability.
+
+\subsubsection{Logistic Sigmoid Scaling}
+
+For binary classification, we can use a logistic sigmoid transformation:
+
+\[
+p_c = \frac{1}{1 + e^{D_c(x) - D_{\neg c}(x)}}.
+\]
+
+This function maps contrastive distance into the range \( (0,1) \), ensuring a probability-like interpretation without requiring explicit normalization.
+
+\subsubsection{Inverse Contrastive Distance}
+
+An alternative approach is to define probability as an inverse function of distance:
+
+\[
+p_c = \frac{1}{1 + D_c(x) - D_{\neg c}(x)}.
+\]
+
+This formulation is particularly useful for nearest-neighbor-based classification, where probability should decay smoothly with increasing distance.
+
+\subsection{Decision Boundaries in Probability Space}
+
+Regardless of the transformation function used, the decision boundary occurs when:
+
+\[
+D_c(x) = D_{\neg c}(x).
+\]
+
+At this point:
+
+\[
+p_c = \frac{1}{2}, \quad \text{or} \quad p_c = \frac{1}{K} \text{ for multi-class settings}.
+\]
+
+Thus, probability scores in this framework naturally reflect class separability without requiring heuristic adjustments.
+
+\subsection{Advantages Over Traditional Probability Scaling}
+
+Using contrastive distance for probability scaling provides several advantages:
+
+\begin{itemize}
+    \item \textbf{Avoids Arbitrary Scaling:} Unlike raw logits, which can be arbitrarily shifted, contrastive distance ensures probabilities are based on meaningful geometric relationships.
+    \item \textbf{Improves Calibration:} Many deep learning models suffer from overconfidence. Since contrastive distance explicitly models separability, probability scores better reflect classification uncertainty.
+    \item \textbf{Provides a Geometric Interpretation:} Unlike heuristic activation scaling, probability scores directly correspond to distances in feature space.
+\end{itemize}
+
+\subsection{Conclusion}
+
+Transforming contrastive distance into a probability measure preserves the theoretical rigor of our framework while ensuring interpretability in classification systems. By replacing naive activation-based logits with distance-based confidence, we obtain a more meaningful probabilistic model that improves calibration and decision-making.
+
+The next section explores how this framework aligns with softmax classification and provides insights into improving deep learning architectures.

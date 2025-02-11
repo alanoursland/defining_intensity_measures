@@ -1,0 +1,107 @@
+\section{Why Intensity Cannot Be a Direct Negation of Distance}
+
+Given that intensity lacks an independent mathematical definition, one might propose a simple solution: define intensity as the negation of distance. That is, for a given class \( c \), we could define an intensity function \( S_c(x) \) as:
+
+\[
+S_c(x) = -D_c(x)
+\]
+
+where \( D_c(x) \) is the distance from the input \( x \) to the prototype or learned representation of class \( c \). 
+
+While this approach is intuitive, it leads to pathological behavior. In this section, we explore why intensity cannot be directly defined as the negation of distance and why a contrastive formulation is required.
+
+\subsection{The Unbounded Growth Problem}
+
+If intensity were simply the negation of distance, then maximizing \( S_c(x) \) would require minimizing \( D_c(x) \). However, in most practical settings, distances are non-negative and unbounded. This leads to the following issue:
+
+\begin{itemize}
+    \item **As distance decreases, intensity increases, but with no upper bound.**
+    \item **As distance grows, intensity becomes arbitrarily negative.**
+    \item **A model optimizing for maximum intensity would push distances toward negative infinity, which is nonsensical.**
+\end{itemize}
+
+This is in direct contrast to how classification systems work in practice. In classification problems, confidence (which is often interpreted as intensity) does not increase indefinitely but rather saturates when an input is clearly closer to one class than another.
+
+\subsection{Competitive Distance is More Informative Than Absolute Distance}
+
+A deeper issue with defining intensity as \( S_c(x) = -D_c(x) \) is that it ignores the \textit{relative} structure of class distances. In a multi-class setting, classification is not about absolute closeness to a single prototype but about how much closer an input is to one class than to competing classes.
+
+Consider the case of three class prototypes, \( c_1, c_2, \) and \( c_3 \), where an input \( x \) has distances:
+
+\[
+D_{c_1}(x) = 5, \quad D_{c_2}(x) = 10, \quad D_{c_3}(x) = 20.
+\]
+
+If we define intensity as \( S_c(x) = -D_c(x) \), then the intensities for these classes would be:
+
+\[
+S_{c_1}(x) = -5, \quad S_{c_2}(x) = -10, \quad S_{c_3}(x) = -20.
+\]
+
+This suggests that \( x \) most strongly belongs to \( c_1 \), which is reasonable. However, consider a new input where all distances are doubled:
+
+\[
+D_{c_1}(x') = 10, \quad D_{c_2}(x') = 20, \quad D_{c_3}(x') = 40.
+\]
+
+Now, the corresponding intensities are:
+
+\[
+S_{c_1}(x') = -10, \quad S_{c_2}(x') = -20, \quad S_{c_3}(x') = -40.
+\]
+
+Even though the relationships between the classes remain the same, the absolute intensity values have changed significantly. This suggests that absolute distance is not the key factor in classification—\textbf{what matters is the relative difference between distances}.
+
+\subsection{A More Meaningful Formulation: Contrastive Distance}
+
+Instead of defining intensity as a simple negation of distance, we propose defining it as a function of \textit{contrastive distance}, which captures the competitive relationship between different classes.
+
+\[
+S_c(x) = f(D_{\neg c}(x) - D_c(x))
+\]
+
+where:
+
+\begin{itemize}
+    \item \( D_c(x) \) is the distance from \( x \) to the target class prototype.
+    \item \( D_{\neg c}(x) = \min_{c' \neq c} D_{c'}(x) \) is the distance to the nearest non-target class.
+    \item \( f \) is a transformation function ensuring appropriate scaling and boundedness.
+\end{itemize}
+
+This formulation guarantees that intensity:
+
+\begin{itemize}
+    \item Is **bounded**—it does not grow arbitrarily large.
+    \item Is **relative**—it depends on both the target and competing classes.
+    \item Preserves the decision boundary—classification occurs when \( S_c(x) \) is maximized, meaning \( x \) is closest to class \( c \).
+\end{itemize}
+
+\subsection{Ensuring Proper Scaling: Choosing \( f \)}
+
+The function \( f \) should be chosen to ensure stability and interpretability. Several common transformations achieve this:
+
+\begin{itemize}
+    \item \textbf{Linear Difference:}  
+    \[
+    S_c(x) = D_{\neg c}(x) - D_c(x).
+    \]
+    This preserves relative relationships while ensuring a contrastive interpretation.
+    
+    \item \textbf{Exponential Scaling (Softmax-like Behavior):}  
+    \[
+    S_c(x) = e^{-(D_c(x) - D_{\neg c}(x))}.
+    \]
+    This ensures that the intensity remains positive and smoothly varies with distance differences.
+    
+    \item \textbf{Inverse Transformation (Similarity Scaling):}  
+    \[
+    S_c(x) = \frac{1}{1 + D_c(x) - D_{\neg c}(x)}.
+    \]
+    This formulation keeps intensity in the range \( (0,1] \) and provides a natural probability-like interpretation.
+\end{itemize}
+
+\subsection{Conclusion}
+
+Attempting to define intensity as \( S_c(x) = -D_c(x) \) leads to unbounded values and does not capture the competitive nature of classification. Instead, intensity should be understood as a \textit{contrastive measure}, computed from the relative distances between class prototypes.
+
+This insight provides a rigorous foundation for understanding classification confidence. The next section will fully formalize this competitive distance framework and demonstrate its implications for machine learning and cognitive science.

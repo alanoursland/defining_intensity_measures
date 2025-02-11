@@ -1,0 +1,112 @@
+\section{The True Definition: Intensity as Competitive Distance}
+
+Having established that intensity cannot be a direct negation of distance, we now develop a formal definition based on contrastive distance. Instead of viewing intensity as an intrinsic property, we define it as a measure derived from the relative distances between an input and competing class representations. This framework ensures that intensity is well-defined, bounded, and meaningful in classification settings.
+
+\subsection{Reframing Intensity: A Function of Contrastive Distance}
+
+In a classification system, an input \( x \) is mapped to a class \( c \) based on its relationship to learned class representations. Instead of defining intensity as \( S_c(x) = -D_c(x) \), we propose that intensity should be a function of the difference between the distance to the target class and the distance to the closest competing class:
+
+\[
+S_c(x) = f(D_{\neg c}(x) - D_c(x)).
+\]
+
+where:
+
+\begin{itemize}
+    \item \( D_c(x) \) is the distance from \( x \) to the target class representation.
+    \item \( D_{\neg c}(x) = \min_{c' \neq c} D_{c'}(x) \) is the distance to the closest non-target class.
+    \item \( f \) is a transformation function that ensures appropriate scaling and interpretability.
+\end{itemize}
+
+This definition guarantees that intensity:
+
+\begin{itemize}
+    \item \textbf{Captures class separability:} A higher intensity indicates that \( x \) is significantly closer to class \( c \) than any alternative.
+    \item \textbf{Is bounded and stable:} Unlike raw distances, which can grow arbitrarily large, intensity is naturally constrained by the contrast between competing distances.
+    \item \textbf{Naturally aligns with classification confidence:} In probabilistic classification, confidence scores are often functions of relative distances, making this formulation a direct theoretical justification for softmax-like behavior.
+\end{itemize}
+
+\subsection{Choosing an Appropriate Transformation Function \( f \)}
+
+The function \( f \) should ensure that intensity remains meaningful and interpretable. Several choices exist:
+
+\subsubsection{Linear Contrast}
+\[
+S_c(x) = D_{\neg c}(x) - D_c(x).
+\]
+This is the simplest form, preserving the raw difference in distances. It maintains the sign of the contrast, where positive values indicate stronger class membership.
+
+\subsubsection{Softmax Scaling}
+\[
+S_c(x) = e^{-(D_c(x) - D_{\neg c}(x))}.
+\]
+This ensures that small distance differences produce smoothly varying intensities and prevents large variations from dominating.
+
+\subsubsection{Inverse Distance Scaling}
+\[
+S_c(x) = \frac{1}{1 + D_c(x) - D_{\neg c}(x)}.
+\]
+This formulation keeps intensity in the range \( (0,1] \), providing a probability-like interpretation.
+
+\subsubsection{Max-Normalization}
+\[
+S_c(x) = \frac{D_{\neg c}(x) - D_c(x)}{\max(D_{\neg c}(x), D_c(x))}.
+\]
+This ensures that intensity is normalized relative to the largest relevant distance, preventing extreme scaling effects.
+
+Each of these functions maintains the fundamental property that intensity is a measure of class separability rather than absolute feature strength.
+
+\subsection{Interpretation: Intensity as Decision Boundary Margin}
+
+Under this framework, classification confidence is directly tied to how well-separated an input is from competing classes. The decision boundary occurs when:
+
+\[
+D_c(x) = D_{\neg c}(x).
+\]
+
+At this point, intensity reaches a neutral state, meaning that the input is equidistant between two classes. This provides a direct geometric explanation for decision regions in neural networks: 
+
+\begin{itemize}
+    \item When \( D_c(x) < D_{\neg c}(x) \), intensity is positive, indicating confident classification.
+    \item When \( D_c(x) > D_{\neg c}(x) \), intensity is negative, suggesting that another class is closer.
+    \item When \( D_c(x) \approx D_{\neg c}(x) \), intensity is near zero, indicating uncertainty.
+\end{itemize}
+
+\subsection{Connections to Existing Classification Systems}
+
+\subsubsection{Softmax Logits as Competitive Distance}
+Many classification systems, including neural networks, use softmax to produce class probabilities:
+
+\[
+p_c = \frac{e^{z_c}}{\sum_{c'} e^{z_{c'}}}.
+\]
+
+where \( z_c \) is the logit for class \( c \). In our framework, logits can be interpreted as contrastive distances:
+
+\[
+z_c = -D_c(x) + D_{\neg c}(x).
+\]
+
+This reinterpretation suggests that neural networks implicitly learn a distance-based representation, where softmax is simply a nonlinear transformation of contrastive distance.
+
+\subsubsection{Margin-Based Classification}
+Support vector machines (SVMs) use margin-based classification, where a decision boundary is determined by maximizing separation. Our framework aligns with this principle, as intensity naturally encodes the margin between competing distances.
+
+\subsubsection{Probabilistic Models}
+In Gaussian mixture models (GMMs), classification is based on likelihood ratios, which can be reinterpreted as contrastive distance comparisons. This further supports our claim that classification confidence is inherently a function of relative distances.
+
+\subsection{Implications for Neural Network Training}
+
+Redefining intensity as competitive distance suggests potential improvements in training and architecture design:
+
+\begin{itemize}
+    \item \textbf{Alternative loss functions:} Instead of cross-entropy, loss functions could explicitly model contrastive distances.
+    \item \textbf{Robust classification:} Systems that track \( D_{\neg c}(x) \) explicitly could be more robust to adversarial attacks.
+    \item \textbf{Improved interpretability:} Feature importance could be analyzed in terms of competitive distances rather than absolute activations.
+\end{itemize}
+
+\subsection{Conclusion}
+
+Intensity is not a direct measure of feature strength, nor can it be naively defined as the negation of distance. Instead, we define it as a function of contrastive distance, ensuring that it is bounded, stable, and meaningful. This framework provides a rigorous foundation for understanding classification confidence, bridging the gap between metric learning, probabilistic classification, and deep learning.
+
+The next section will explore how this framework naturally explains classification confidence, decision boundaries, and network activations.

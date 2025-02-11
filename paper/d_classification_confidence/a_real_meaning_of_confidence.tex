@@ -1,0 +1,94 @@
+\section{The Real Meaning of Classification Confidence}
+
+Traditional interpretations of classification confidence suggest that larger activations in neural networks correspond to stronger feature presence. However, our competitive distance framework provides a more rigorous explanation: classification confidence is not a measure of absolute activation magnitude but rather a function of relative distances between an input and competing class prototypes. 
+
+In this section, we redefine classification confidence as a function of contrastive distance and show how this naturally explains decision boundaries, uncertainty, and neural activations.
+
+\subsection{Confidence as a Function of Competitive Distance}
+
+In a multi-class classification setting, a model assigns a confidence score \( S_c(x) \) to each class \( c \). Instead of viewing this as an absolute measure of feature strength, we define it in terms of the contrast between the distance to the target class and the distance to the closest competing class:
+
+\[
+S_c(x) = f(D_{\neg c}(x) - D_c(x)).
+\]
+
+where:
+
+\begin{itemize}
+    \item \( D_c(x) \) is the distance from input \( x \) to the prototype or learned representation of class \( c \).
+    \item \( D_{\neg c}(x) = \min_{c' \neq c} D_{c'}(x) \) is the distance to the closest non-target class.
+    \item \( f \) is a transformation function that ensures appropriate scaling.
+\end{itemize}
+
+This formulation provides a direct interpretation of confidence:
+
+\begin{itemize}
+    \item \textbf{High confidence:} \( S_c(x) \) is maximized when \( D_c(x) \) is much smaller than \( D_{\neg c}(x) \), meaning that \( x \) is clearly closer to class \( c \) than to any alternative.
+    \item \textbf{Low confidence:} \( S_c(x) \) is near zero when \( D_c(x) \approx D_{\neg c}(x) \), meaning that \( x \) is near a decision boundary and classification is uncertain.
+    \item \textbf{Misclassification:} If \( D_c(x) > D_{\neg c}(x) \), then \( S_c(x) \) is negative, indicating that \( x \) is closer to another class.
+\end{itemize}
+
+\subsection{Decision Boundaries and Uncertainty}
+
+A key property of this framework is that classification confidence naturally reflects decision boundaries. The boundary between two classes \( c_1 \) and \( c_2 \) occurs where:
+
+\[
+D_{c_1}(x) = D_{c_2}(x).
+\]
+
+At this point:
+
+\[
+S_{c_1}(x) = S_{c_2}(x) = 0.
+\]
+
+This aligns with standard decision theory: when two competing classes are equidistant from \( x \), the classification decision is maximally uncertain.
+
+Beyond binary classification, the framework extends to multi-class problems, where decision boundaries form Voronoi-like regions in feature space. The class assigned to an input \( x \) is the one for which \( S_c(x) \) is maximized, ensuring that each decision is based on the contrastive distance to competing classes.
+
+\subsection{Softmax Reinterpreted as Competitive Distance Scaling}
+
+Softmax is widely used to convert logits into probability-like confidence scores:
+
+\[
+p_c = \frac{e^{z_c}}{\sum_{c'} e^{z_{c'}}}.
+\]
+
+where \( z_c \) represents the logit for class \( c \). Under our framework, logits can be directly interpreted as contrastive distances:
+
+\[
+z_c = -D_c(x) + D_{\neg c}(x).
+\]
+
+This shows that softmax is not computing confidence based on raw activations but rather on the difference between distances to competing classes. The exponentiation in softmax serves to ensure smooth transitions between probabilities and prevents negative values from dominating the classification decision.
+
+This reinterpretation also clarifies why softmax confidence can be overconfident in high-dimensional spaces: when distances between class prototypes are large, the difference \( D_{\neg c}(x) - D_c(x) \) becomes exaggerated, leading to probability distributions that favor one class disproportionately.
+
+\subsection{Geometric Interpretation of Activation Space}
+
+When visualizing activations in feature space, our framework provides a clearer understanding of neural network behavior:
+
+\begin{itemize}
+    \item **Class Prototypes Form Distance-Based Regions:** Each learned class representation serves as a prototype, and classification occurs based on proximity to these points.
+    \item **High-Confidence Regions Are Separated by Large Distance Differences:** Inputs far from decision boundaries have large contrastive distance differences, resulting in high classification confidence.
+    \item **Low-Confidence Regions Exist Near Decision Boundaries:** Inputs near a boundary have small contrastive distance differences, making them more sensitive to perturbations.
+    \item **Misclassified Inputs Have Negative Contrastive Intensity:** Inputs incorrectly classified are those where the model has a stronger distance match with a non-target class.
+\end{itemize}
+
+This interpretation naturally aligns with findings in adversarial robustness: small perturbations that move an input across a decision boundary shift the contrastive distance balance, leading to misclassification.
+
+\subsection{Implications for Model Robustness and Calibration}
+
+Understanding classification confidence as a function of contrastive distance provides new insights into:
+
+\begin{itemize}
+    \item \textbf{Calibration:} Many models are overconfident because softmax exaggerates small differences in contrastive distance. Adjusting \( f(D_{\neg c}(x) - D_c(x)) \) could improve calibration.
+    \item \textbf{Adversarial Defense:} Tracking both \( D_c(x) \) and \( D_{\neg c}(x) \) explicitly could improve robustness against attacks that push inputs across decision boundaries.
+    \item \textbf{Uncertainty Estimation:} Instead of relying on entropy of softmax probabilities, uncertainty can be directly measured using the raw difference in class distances.
+\end{itemize}
+
+\subsection{Conclusion}
+
+We have redefined classification confidence as a function of competitive distance, providing a more rigorous explanation for decision boundaries, uncertainty, and neural activations. This framework naturally explains why softmax probabilities behave as they do and suggests new approaches for improving model calibration and robustness.
+
+The next section will explore why this formulation prevents pathological behavior and ensures stability in classification decisions.
