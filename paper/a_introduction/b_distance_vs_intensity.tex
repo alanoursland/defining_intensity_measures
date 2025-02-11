@@ -9,12 +9,23 @@ In this section, we examine the key differences between distance and intensity a
 Distance is one of the most fundamental concepts in mathematics. A properly defined distance function (or metric) satisfies key properties such as non-negativity, symmetry, and the triangle inequality. Some common distance measures include:
 
 \begin{itemize}
-    \item \textbf{Euclidean Distance:} Measures the straight-line separation between two points.
-    \item \textbf{Mahalanobis Distance:} Adjusts for correlations and feature variances in multidimensional spaces.
-    \item \textbf{Cosine Distance:} Measures angular separation between vectors rather than absolute magnitude.
+    \item \textbf{Euclidean Distance:} Measures the straight-line separation between two points:
+    \[
+    d(x, y) = \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2 + \dots + (x_n - y_n)^2}.
+    \]
+    \item \textbf{Mahalanobis Distance:} Adjusts for correlations and feature variances in multidimensional spaces:
+    \[
+    D_M(x, y) = \sqrt{(x - y)^T \Sigma^{-1} (x - y)}.
+    \]
+    \item \textbf{Cosine Distance:} Measures angular separation between vectors rather than absolute magnitude:
+    \[
+    d_{\text{cosine}}(x, y) = 1 - \frac{x \cdot y}{\|x\| \|y\|}.
+    \]
 \end{itemize}
 
 These measures provide a \textbf{geometric basis for similarity and dissimilarity} in various mathematical spaces.
+
+% Placeholder: Insert a simple diagram illustrating Euclidean vs. Mahalanobis vs. Cosine distance.
 
 \subsubsection{Intensity: A Concept Without Formal Definition}
 
@@ -28,6 +39,8 @@ In contrast to distance, intensity is often used informally to describe the stre
 
 Unlike distance, intensity lacks a universal definition, leading to ambiguity in how it should be interpreted across different domains.
 
+% Placeholder: Add a table comparing distance-based and intensity-based measures across different disciplines.
+
 \subsubsection{Why the Traditional View of Intensity is Problematic}
 
 Interpreting intensity as an independent measure leads to several problems:
@@ -38,6 +51,8 @@ Interpreting intensity as an independent measure leads to several problems:
     \item \textbf{Overconfidence in Classification:} Traditional activation-based confidence measures can exaggerate certainty due to improper scaling.
     \item \textbf{Lack of Decision Boundary Awareness:} Intensity-based confidence does not inherently reflect how close a sample is to a decision boundary.
 \end{enumerate}
+
+% Placeholder: Add a small example illustrating how neural activations fail to represent decision boundary confidence.
 
 \subsubsection{The Need for a Competitive Distance Framework}
 
@@ -63,6 +78,8 @@ This formulation ensures that classification confidence:
     \item Naturally aligns with decision boundaries and uncertainty estimation.
 \end{itemize}
 
-\subsubsection{Conclusion}
+% Placeholder: Add a simple visualization of competitive distance illustrating how decision boundaries emerge from relative distances.
+
+\subsubsection{Conclusion and Transition}
 
 The lack of a formal definition for intensity has led to inconsistencies in classification confidence, neural activations, and probability scaling. By reframing intensity in terms of \textbf{competitive distance}, we provide a rigorous and interpretable measure that resolves these issues. The next section will outline the goals of this chapter and the key insights that will be developed in later sections.
