@@ -1,6 +1,19 @@
 \subsection{The Illusion of Intensity}
 
-In many scientific and engineering disciplines, the term \textit{intensity} is used informally to describe the strength or presence of a property. In physics, intensity often refers to measurable quantities such as the amplitude of a wave or the power of a signal. In deep learning, activation magnitudes are frequently interpreted as indicating the “strength” of a feature. However, despite its widespread use, intensity lacks a rigorous mathematical definition. This section explores why intensity is often an illusion—an artifact of how distance-based measures are interpreted rather than a fundamental property.
+In many scientific and engineering disciplines, the term \textit{intensity} is used informally to describe the strength or presence of a property. In physics, intensity often refers to measurable quantities such as the amplitude of a wave or the power of a signal. In deep learning, activation magnitudes are frequently interpreted as indicating the "strength" of a feature. However, despite its widespread use, intensity lacks a rigorous mathematical definition. This section explores why intensity is often an illusion---an artifact of how distance-based measures are interpreted rather than a fundamental property.
+
+\subsubsection{Distance vs. Intensity: A Fundamental Distinction}
+
+To clarify why intensity is problematic as an independent measure, it is essential to contrast it with distance:
+
+\begin{itemize}
+    \item \textbf{Distance:} A well-defined mathematical measure satisfying metric space axioms (e.g., Euclidean, Mahalanobis distance).
+    \item \textbf{Intensity:} A heuristic measure that lacks universal definition and consistency.
+\end{itemize}
+
+% Placeholder for a diagram visually contrasting distance vs. intensity
+
+This distinction is crucial: while distances are rigorously defined and measurable, intensity is often arbitrarily assigned and scale-dependent. 
 
 \subsubsection{Intensity as a Heuristic Concept}
 
@@ -24,23 +37,11 @@ In deep learning, neurons process information by transforming input data through
     \[
     p_c = \frac{e^{z_c}}{\sum_{c'} e^{z_{c'}}}
     \]
-    where \( z_c \) are the logits (pre-softmax activations). This transformation ensures that class scores are interpreted in a \textit{relative} manner—an individual logit has no inherent meaning without comparison to others.
+    where \( z_c \) are the logits (pre-softmax activations). This transformation ensures that class scores are interpreted in a \textit{relative} manner---an individual logit has no inherent meaning without comparison to others.
     \item \textbf{Empirical Evidence from Perturbation Studies:} Studies show that **small adversarial perturbations can drastically change classification output**, even when they cause minimal change in activation magnitudes. This suggests that classification is not driven by feature “intensity” but rather by **how distances between class representations are modified**.
 \end{enumerate}
 
 These observations suggest that the perception of intensity as an independent measure is an illusion. Instead, activation values should be interpreted through the lens of distance and competition between classes.
-
-\subsubsection{The Role of Distance in Classification Decisions}
-
-Consider a simple classification problem where a neural network must distinguish between two classes. A naive intensity-based interpretation suggests that an input belongs to a class if the activation for that class exceeds a certain threshold. However, this approach fails in practical settings:
-
-\begin{itemize}
-    \item A small activation does not necessarily mean a feature is absent—only that it is not dominant relative to others.
-    \item A large activation is not meaningful unless contrasted against alternative class activations.
-    \item If neural networks relied on absolute intensities, classification confidence should be stable under uniform scaling of all activations, yet empirical evidence shows that scaling all activations equally can still affect classification outcomes.
-\end{itemize}
-
-Instead of interpreting activation values as absolute feature strength, it is more accurate to view them as **encodings of competitive distances**. That is, a classification decision is made not based on a single feature’s presence, but on its proximity to multiple class prototypes.
 
 \subsubsection{A Thought Experiment: Bigfoot and the Intensity Fallacy}
 
@@ -53,6 +54,8 @@ A naive intensity-based approach suggests that finding a very large footprint is
     \item **The Strength of Evidence Comes from Competitive Comparison:** The key question is not "how large is this footprint?" but rather "how much more likely is this footprint to belong to Bigfoot than to any other known animal?"
     \item **Classification is Relative, Not Absolute:** Without considering competing explanations, any measure of “Bigfoot-ness” is meaningless.
 \end{enumerate}
+
+% Placeholder for a simple diagram comparing different possible explanations of footprint size
 
 This parallels neural network classification: an activation’s magnitude only matters in comparison to alternative activations. Just as a single footprint does not prove Bigfoot’s existence, a high activation does not prove that a feature is truly present—it only suggests that the input is closer to one learned representation than another.
 
@@ -72,5 +75,6 @@ where:
     \item \( S_c(x) \) is the intensity measure, which should be formulated as a function \( f \) of these relative distances.
 \end{itemize}
 
-This redefinition eliminates the illusion of intensity and provides a rigorous foundation for understanding classification confidence. In the next section, we will formalize this framework and show why intensity must be defined in terms of contrastive distance rather than absolute activations.
+% Placeholder for a 2D visualization of class prototypes and distances
 
+This redefinition eliminates the illusion of intensity and provides a rigorous foundation for understanding classification confidence. In the next section, we will formalize this framework and show why intensity must be defined in terms of contrastive distance rather than absolute activations.

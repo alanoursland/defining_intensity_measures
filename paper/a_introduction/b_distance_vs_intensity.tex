@@ -2,7 +2,7 @@
 
 In many fields, the concepts of \textit{distance} and \textit{intensity} are used interchangeably or without formal distinction. While distance is rigorously defined in mathematics, intensity is often treated as an intuitive, heuristic measure of strength or presence. This lack of formalism creates inconsistencies, particularly in classification systems where confidence and decision-making rely on well-defined measures.
 
-In this section, we examine the key differences between distance and intensity and highlight why intensity, as traditionally used, lacks a foundational definition.
+To address these inconsistencies, we introduce the concept of \textbf{competitive distance} early in this section. Competitive distance provides a structured approach to defining classification confidence by comparing relative distances rather than relying on heuristic intensity values.
 
 \subsubsection{Distance: A Well-Defined Measure}
 
@@ -27,9 +27,33 @@ These measures provide a \textbf{geometric basis for similarity and dissimilarit
 
 % Placeholder: Insert a simple diagram illustrating Euclidean vs. Mahalanobis vs. Cosine distance.
 
-\subsubsection{Intensity: A Concept Without Formal Definition}
+\subsubsection{Competitive Distance: A More Rigorous Alternative to Intensity}
 
-In contrast to distance, intensity is often used informally to describe the strength of a feature, probability, or classification confidence. Examples include:
+Traditional intensity-based measures suffer from several shortcomings, particularly in classification and decision-making systems. Instead of using heuristic intensity measures, we define \textbf{competitive distance}, which quantifies classification confidence in terms of the relative separation between competing class distances.
+
+Competitive distance is defined as:
+\[
+    S_c(x) = f(D_{\neg c}(x) - D_c(x)),
+\]
+where:
+\begin{itemize}
+    \item \( D_c(x) \) is the distance from \( x \) to the target class prototype.
+    \item \( D_{\neg c}(x) \) is the distance from \( x \) to the nearest non-target class prototype.
+    \item \( S_c(x) \) represents a properly defined classification confidence measure based on relative distances.
+\end{itemize}
+
+This formulation ensures that classification confidence:
+\begin{itemize}
+    \item Is grounded in geometric relationships between classes.
+    \item Remains bounded and interpretable.
+    \item Naturally aligns with decision boundaries and uncertainty estimation.
+\end{itemize}
+
+% Placeholder: Add a visualization showing decision boundaries emerging from competitive distance comparisons.
+
+\subsubsection{Why Intensity is a Concept Without Formal Definition}
+
+Unlike distance, intensity is often used informally to describe the strength of a feature, probability, or classification confidence. Examples include:
 
 \begin{itemize}
     \item \textbf{Brightness in Physics:} The intensity of light is often equated with amplitude squared.
@@ -62,21 +86,7 @@ Since intensity lacks a foundational definition, we propose redefining it in ter
 S_c(x) = f(D_{\neg c}(x) - D_c(x)).
 \]
 
-where:
-
-\begin{itemize}
-    \item \( D_c(x) \) is the distance to the target class prototype.
-    \item \( D_{\neg c}(x) \) is the distance to the closest non-target class.
-    \item \( S_c(x) \) represents intensity, now properly defined as a function of relative distance.
-\end{itemize}
-
-This formulation ensures that classification confidence:
-
-\begin{itemize}
-    \item Is grounded in geometric relationships between classes.
-    \item Remains bounded and interpretable.
-    \item Naturally aligns with decision boundaries and uncertainty estimation.
-\end{itemize}
+This formulation ensures that classification confidence is not an arbitrary activation magnitude but a function of how much closer an input is to one class compared to others. It naturally prevents unbounded confidence values, aligns with decision boundaries, and improves uncertainty estimation.
 
 % Placeholder: Add a simple visualization of competitive distance illustrating how decision boundaries emerge from relative distances.
 

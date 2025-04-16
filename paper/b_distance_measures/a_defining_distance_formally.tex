@@ -1,6 +1,6 @@
 \subsection{Defining Distance Formally}
 
-Distance is one of the most fundamental and rigorously defined measures in mathematics. It quantifies the separation between two points in a space, forming the foundation for concepts in geometry, analysis, and machine learning. Unlike intensity, which lacks a universal mathematical definition, distance is formally characterized within the framework of metric spaces.
+Distance is a fundamental measure in mathematics and applied sciences, quantifying the separation between two points in space. Unlike intensity, which lacks a universal mathematical definition and is often used heuristically, distance is rigorously defined through metric space axioms. This section introduces the formalism of distance measures, explores different types of distances used in classification, and lays the groundwork for understanding competitive distance as a critical concept in classification confidence.
 
 \subsubsection{Metric Spaces and Distance Functions}
 
@@ -25,60 +25,67 @@ A \textbf{metric space} is a set \( X \) equipped with a function \( d: X \times
     \]
 \end{enumerate}
 
-These properties ensure that distance behaves predictably and enables various mathematical operations, such as clustering, nearest-neighbor searches, and decision boundary calculations.
+These properties ensure that distance behaves predictably and supports various mathematical operations, such as clustering, nearest-neighbor searches, and decision boundary calculations.
+
+% Placeholder for a diagram: A simple visual representation of the metric space axioms, illustrating symmetry, identity, and the triangle inequality.
 
 \subsubsection{Common Distance Metrics}
 
-Several distance metrics appear frequently across mathematics, data science, and machine learning:
+Several distance metrics are widely used in mathematics, data science, and machine learning. Each has unique properties that make it suitable for different applications:
 
-\subsubsection{Euclidean Distance}
-The \textbf{Euclidean distance} is the most familiar and intuitive metric, defined in \( \mathbb{R}^n \) as:
-
+\paragraph{Euclidean Distance}
+The \textbf{Euclidean distance} is the most familiar metric, representing the straight-line distance between two points:
 \[
-d_{\text{Euclidean}}(x, y) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}.
+    d_{\text{Euclidean}}(x, y) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}.
 \]
+It is commonly used in clustering, nearest-neighbor methods, and gradient-based optimization.
 
-This metric corresponds to the straight-line distance between two points and is widely used in geometric reasoning and optimization problems.
-
-\subsubsection{Manhattan Distance}
+\paragraph{Manhattan Distance}
 The \textbf{Manhattan distance} (or \( L_1 \)-norm) measures distance along coordinate axes:
-
 \[
-d_{\text{Manhattan}}(x, y) = \sum_{i=1}^{n} |x_i - y_i|.
+    d_{\text{Manhattan}}(x, y) = \sum_{i=1}^{n} |x_i - y_i|.
 \]
+This is useful in grid-based movement applications such as urban navigation and certain machine learning models where axis-aligned movement is relevant.
 
-It is useful in settings where movement is constrained to grid-like structures, such as robotics or urban navigation.
-
-\subsubsection{Mahalanobis Distance}
-Unlike Euclidean distance, which assumes uniform feature scaling, the \textbf{Mahalanobis distance} accounts for correlations between variables:
-
+\paragraph{Mahalanobis Distance}
+The \textbf{Mahalanobis distance} accounts for correlations between variables and adapts to different feature scales:
 \[
-D_M(x, y) = \sqrt{(x - y)^T \Sigma^{-1} (x - y)},
+    D_M(x, y) = \sqrt{(x - y)^T \Sigma^{-1} (x - y)},
 \]
+where \( \Sigma \) is the covariance matrix of the dataset. This metric is widely used in anomaly detection and metric learning.
 
-where \( \Sigma \) is the covariance matrix of the dataset. This metric is particularly useful for measuring distances in high-dimensional spaces where feature variances differ.
+% Placeholder for a table: A comparison of Euclidean, Manhattan, and Mahalanobis distances with formulas and key applications.
 
-\subsubsection{Cosine Distance}
-The \textbf{cosine distance} measures the angle between two vectors rather than their absolute separation:
-
+\paragraph{Cosine Distance}
+The \textbf{cosine distance} measures the angular difference between two vectors:
 \[
-d_{\text{cosine}}(x, y) = 1 - \frac{x \cdot y}{\|x\| \|y\|}.
+    d_{\text{cosine}}(x, y) = 1 - \frac{x \cdot y}{\|x\| \|y\|}.
 \]
+It is commonly used in text analysis and information retrieval, where directional similarity matters more than magnitude.
 
-It is commonly used in text analysis and information retrieval, where directionality is more meaningful than magnitude.
-
-\subsubsection{Kullback-Leibler Divergence (KL-Divergence)}
-In probability and information theory, the \textbf{KL-divergence} measures how one probability distribution \( P \) diverges from another reference distribution \( Q \):
-
+\paragraph{Kullback-Leibler Divergence (KL-Divergence)}
+Unlike the previous metrics, KL-divergence is a measure of how one probability distribution \( P \) diverges from another reference distribution \( Q \):
 \[
-D_{\text{KL}}(P || Q) = \sum_i P(i) \log \frac{P(i)}{Q(i)}.
+    D_{\text{KL}}(P || Q) = \sum_i P(i) \log \frac{P(i)}{Q(i)}.
 \]
-
-Unlike the previous metrics, KL-divergence is not symmetric and does not satisfy the triangle inequality, meaning it is not a true metric. However, it remains a useful measure of dissimilarity in probabilistic models.
+Since it does not satisfy the triangle inequality, KL-divergence is not a true metric but is essential in probabilistic modeling and information theory.
 
 \subsubsection{Distance as the Fundamental Measure}
 
-A key property of distance measures is their universality: almost all similarity measures can be derived from distance functions, either through negation or transformation. In particular, \textbf{intensity measures often emerge as functions of distance}, a theme that will be explored in subsequent sections.
+A key property of distance is its universality: almost all similarity measures can be derived from distance functions, either through negation or transformation. Intensity measures, often used in classification, are typically functions of distance rather than independent quantities.
 
-While distance is rigorously defined and essential in numerous mathematical formulations, intensity lacks a similar foundation. The next section will demonstrate why intensity must be interpreted as a function of relative distances rather than an independent measure.
+\paragraph{Introducing Competitive Distance}
+A crucial insight in classification tasks is that intensity (e.g., neural activations) should be understood not as an absolute quantity but as a measure of **relative separation** between competing classes. This leads to the concept of \textbf{competitive distance}, which will be formalized in later sections.
 
+Instead of simply measuring distance to a single class prototype \( D_c(x) \), competitive distance considers the separation between multiple competing classes:
+\[
+    S_c(x) = f(D_{\neg c}(x) - D_c(x)).
+\]
+where:
+- \( D_c(x) \) is the distance from \( x \) to the target class.
+- \( D_{\neg c}(x) \) is the distance from \( x \) to the nearest competing class.
+- \( S_c(x) \) represents intensity, now framed as a function of contrastive distances.
+
+% Placeholder for a figure: A visualization of decision boundaries based on competitive distance, showing how classification confidence emerges from relative distances.
+
+This framework provides a geometrically grounded approach to classification, improving interpretability and robustness in machine learning models. The next section will explore why intensity must be derived from contrastive distances rather than treated as an independent measure.

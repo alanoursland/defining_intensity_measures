@@ -18,6 +18,8 @@ where:
     \item \( f \) is a transformation function that ensures appropriate scaling and interpretability.
 \end{itemize}
 
+% Placeholder for a visualization comparing absolute distance and contrastive distance
+
 This definition guarantees that intensity:
 
 \begin{itemize}
@@ -30,31 +32,35 @@ This definition guarantees that intensity:
 
 The function \( f \) should ensure that intensity remains meaningful and interpretable. Several choices exist:
 
-\subsubsection{Linear Contrast}
-\[
-S_c(x) = D_{\neg c}(x) - D_c(x).
-\]
-This is the simplest form, preserving the raw difference in distances. It maintains the sign of the contrast, where positive values indicate stronger class membership.
+\begin{itemize}
+    \item \textbf{Linear Contrast:}  
+    \[
+    S_c(x) = D_{\neg c}(x) - D_c(x).
+    \]
+    This preserves the raw difference in distances, maintaining contrast while ensuring a simple interpretation.
+    
+    \item \textbf{Softmax Scaling:}  
+    \[
+    S_c(x) = e^{-(D_c(x) - D_{\neg c}(x))}.
+    \]
+    This ensures that small distance differences produce smoothly varying intensities and prevents extreme variations.
+    
+    \item \textbf{Inverse Distance Scaling:}  
+    \[
+    S_c(x) = \frac{1}{1 + D_c(x) - D_{\neg c}(x)}.
+    \]
+    This formulation constrains intensity to \( (0,1] \), offering a probability-like interpretation.
+    
+    \item \textbf{Max-Normalization:}  
+    \[
+    S_c(x) = \frac{D_{\neg c}(x) - D_c(x)}{\max(D_{\neg c}(x), D_c(x))}.
+    \]
+    This normalizes intensity relative to the largest relevant distance, preventing extreme scaling effects.
+\end{itemize}
 
-\subsubsection{Softmax Scaling}
-\[
-S_c(x) = e^{-(D_c(x) - D_{\neg c}(x))}.
-\]
-This ensures that small distance differences produce smoothly varying intensities and prevents large variations from dominating.
+% Placeholder for a diagram comparing different transformations of contrastive distance
 
-\subsubsection{Inverse Distance Scaling}
-\[
-S_c(x) = \frac{1}{1 + D_c(x) - D_{\neg c}(x)}.
-\]
-This formulation keeps intensity in the range \( (0,1] \), providing a probability-like interpretation.
-
-\subsubsection{Max-Normalization}
-\[
-S_c(x) = \frac{D_{\neg c}(x) - D_c(x)}{\max(D_{\neg c}(x), D_c(x))}.
-\]
-This ensures that intensity is normalized relative to the largest relevant distance, preventing extreme scaling effects.
-
-Each of these functions maintains the fundamental property that intensity is a measure of class separability rather than absolute feature strength.
+Each of these functions ensures that intensity remains a measure of class separability rather than absolute feature strength.
 
 \subsubsection{Interpretation: Intensity as Decision Boundary Margin}
 
@@ -74,7 +80,7 @@ At this point, intensity reaches a neutral state, meaning that the input is equi
 
 \subsubsection{Connections to Existing Classification Systems}
 
-\subsubsection{Softmax Logits as Competitive Distance}
+\paragraph{Softmax Logits as Competitive Distance}
 Many classification systems, including neural networks, use softmax to produce class probabilities:
 
 \[
@@ -89,10 +95,10 @@ z_c = -D_c(x) + D_{\neg c}(x).
 
 This reinterpretation suggests that neural networks implicitly learn a distance-based representation, where softmax is simply a nonlinear transformation of contrastive distance.
 
-\subsubsection{Margin-Based Classification}
+\paragraph{Margin-Based Classification}
 Support vector machines (SVMs) use margin-based classification, where a decision boundary is determined by maximizing separation. Our framework aligns with this principle, as intensity naturally encodes the margin between competing distances.
 
-\subsubsection{Probabilistic Models}
+\paragraph{Probabilistic Models}
 In Gaussian mixture models (GMMs), classification is based on likelihood ratios, which can be reinterpreted as contrastive distance comparisons. This further supports our claim that classification confidence is inherently a function of relative distances.
 
 \subsubsection{Implications for Neural Network Training}
@@ -108,5 +114,7 @@ Redefining intensity as competitive distance suggests potential improvements in 
 \subsubsection{Conclusion}
 
 Intensity is not a direct measure of feature strength, nor can it be naively defined as the negation of distance. Instead, we define it as a function of contrastive distance, ensuring that it is bounded, stable, and meaningful. This framework provides a rigorous foundation for understanding classification confidence, bridging the gap between metric learning, probabilistic classification, and deep learning.
+
+% Placeholder for a final diagram summarizing contrastive distance framework
 
 The next section will explore how this framework naturally explains classification confidence, decision boundaries, and network activations.
